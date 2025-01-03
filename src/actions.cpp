@@ -20,6 +20,10 @@ void lift(){
 }
 void lower(){
 	fourBar.set_value(LOW);
+}
+void dunk(){
+	dunker.move_relative(100,100);
+	dunker.move_relative(-100,100);
 } 
 void intakeColorRed(){
 	if(sOpt.get_hue() == 0){
