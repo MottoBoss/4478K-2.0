@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Compiled Object files
 *.o
 *.obj
@@ -15,3 +16,37 @@ temp.log
 temp.errors
 *.ini
 .d/
+=======
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+>>>>>>> 97cd16b1dfce792b875bdc9ca9cf385b664f7443
