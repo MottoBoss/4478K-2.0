@@ -117,7 +117,6 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-	
 	bool slow = false; 
 	mIntake.set_brake_mode(MotorBrake::coast);
 	dunker.set_brake_mode(MotorBrake::hold);
@@ -138,29 +137,37 @@ void opcontrol() {
 		delay(20);                         // Run for 20 ms then update
         drive();
 
-		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){toggleClamp();} //handles clamp
-		
-		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){
-			isLiftDown  = !isLiftDown;
-			if(isLiftDown){lift();} //raises lift when it is down
-			else{lower();} //lowers lift when it is up
+		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){ //handles clamp
+			toggleClamp();
 		}
 		
-			if(controller.get_digital(E_CONTROLLER_DIGITAL_R1)){    mIntake.move(-127);} //move intake forward
-			else if(controller.get_digital(E_CONTROLLER_DIGITAL_R2)){   mIntake.move(127);}//move intake backward
-			else{mIntake.brake();}    //stop intake
+		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_DOWN)){ //raises lift when it is down
+			isLiftDown  = !isLiftDown;
+			if(isLiftDown){
+				lift();
+			} 
+			else{ //lowers lift when it is up
+				lower();
+			} 
+		}
 		
-		
+		if(controller.get_digital(E_CONTROLLER_DIGITAL_R1)){    
+			mIntake.move(-127);
+		} //move intake forward
+		else if(controller.get_digital(E_CONTROLLER_DIGITAL_R2)){   
+			mIntake.move(127);
+		}//move intake backward
+		else{
+			mIntake.brake();
+		}    //stop intake
 
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
 			//mArm.move(-127);
-            dunk();
-            
+            overclock();
 		}
 		
 	
-		
-		
+
         //controller.set_text(0, 0, "Positon: %f", (rotation_sensor.get_position()));
      
         //controller.set_text(0,0,"%d",rotation_sensor.get_position() );

@@ -48,13 +48,11 @@ void redRight(){ //mogo side
 	chassis.waitUntilDone();
 	chassis.setPose(-50.5,  0.2, chassis.getPose().theta);
     chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
-
-
     chassis.waitUntilDone();
     delay(100);
     mIntake.move(-220);
-    chassis.setPose(-63.5, 0.2, 90);
     delay(900); //score alliance stake
+
     chassis.moveToPoint(-47.938, -15.951, 1000);
     chassis.moveToPose(-28.5, -23.999, -55, 2000, {.forwards = false}); //get to mogo
     chassis.waitUntilDone();
@@ -71,10 +69,11 @@ void blueLeft(){ //mogo side
     chassis.moveToPoint(-54.5,  0.2, 1500, {.forwards = false});
     chassis.moveToPose(-63.5,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
-    
     delay(100);
-    mIntake.move(-220);
+    overclock();
     delay(1100); //score alliance stake
+
+    mIntake.move(-280);
     chassis.moveToPoint(-47.938, 15.951, 1000);
     chassis.moveToPose(-28.5, 23.999, -145, 2000, {.forwards = false}); //get to mogo
     chassis.waitUntilDone();
@@ -93,8 +92,10 @@ void redLeft(){ //ring side
     chassis.moveToPose(-63.5,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
     delay(100);
-    mIntake.move(-220);
+    overclock();
     delay(1100); //score alliance stake
+
+    mIntake.move(-280);
     chassis.setPose(-63.5,  0.2, chassis.getPose().theta);
     chassis.moveToPoint(-47.938, 15.951, 1000);
     chassis.moveToPose(-28.5, 23.999, -145, 2000, {.forwards = false}); //get to mogo
@@ -128,13 +129,12 @@ void blueRight(){ //ring side
 	chassis.waitUntilDone();
 	chassis.setPose(-50.5,  0.2, chassis.getPose().theta);
     chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
-
-
     chassis.waitUntilDone();
     delay(100);
-    mIntake.move(-220);
-    chassis.setPose(-63.5, 0.2, 90);
+    overclock();
     delay(900); //score alliance stake
+
+    mIntake.move(-280);
     chassis.moveToPoint(-47.938, -15.951, 1000);
     chassis.moveToPose(-28.5, -23.999, -55, 2000, {.forwards = false}); //get to mogo
     chassis.waitUntilDone();

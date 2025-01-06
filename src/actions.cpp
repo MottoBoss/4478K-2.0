@@ -21,8 +21,9 @@ void lift(){
 void lower(){
 	fourBar.set_value(LOW);
 }
-void dunk(){
+void overclock(){
 	dunker.move_relative(100,100);
+	delay(200);
 	dunker.move_relative(-100,100);
 } 
 void intakeColorRed(){
