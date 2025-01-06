@@ -50,7 +50,7 @@ void redRight(){ //mogo side
     chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
     delay(100);
-    mIntake.move(-220);
+    dunk();
     delay(900); //score alliance stake
 
     chassis.moveToPoint(-47.938, -15.951, 1000);
@@ -70,7 +70,7 @@ void blueLeft(){ //mogo side
     chassis.moveToPose(-63.5,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
     delay(100);
-    overclock();
+    dunk();
     delay(1100); //score alliance stake
 
     mIntake.move(-280);
@@ -92,7 +92,7 @@ void redLeft(){ //ring side
     chassis.moveToPose(-63.5,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
     delay(100);
-    overclock();
+    dunk();
     delay(1100); //score alliance stake
 
     mIntake.move(-280);
@@ -131,7 +131,7 @@ void blueRight(){ //ring side
     chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
     chassis.waitUntilDone();
     delay(100);
-    overclock();
+    dunk();
     delay(900); //score alliance stake
 
     mIntake.move(-280);

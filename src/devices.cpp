@@ -6,7 +6,7 @@ Controller controller(E_CONTROLLER_MASTER);
 MotorGroup mLefts({-16, -20, -6}); // left motors forward (negitve)
 MotorGroup mRights({18, 5, 8}); // right motors reverse (positve)
 Motor mIntake(15, pros::MotorGearset::blue);
-Motor dunker(13, pros::MotorGearset::green);
+Motor overclock(13, pros::MotorGearset::green);
 Imu imu(17);
 Distance sDist(1);
 Optical sOpt(2);

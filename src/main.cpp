@@ -119,9 +119,9 @@ void autonomous() {
 void opcontrol() {
 	bool slow = false; 
 	mIntake.set_brake_mode(MotorBrake::coast);
-	dunker.set_brake_mode(MotorBrake::hold);
+	overclock.set_brake_mode(MotorBrake::hold);
 	bool isLiftDown = true;
-	dunker.tare_position();
+	overclock.tare_position();
     
     rotation_sensor.reset_position();
     rotation_sensor.set_position(0);
@@ -163,7 +163,7 @@ void opcontrol() {
 
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
 			//mArm.move(-127);
-            overclock();
+            dunk();
 		}
 		
 	

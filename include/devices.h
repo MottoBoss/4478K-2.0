@@ -14,7 +14,7 @@ extern MotorGroup mLefts; // left motors forward (negitve)
 extern Controller controller;
 extern MotorGroup mRights; // right motors reverse (positve)
 extern Motor mIntake;
-extern Motor dunker;
+extern Motor overclock;
 extern Imu imu;
 extern Rotation rotation_sensor;
 extern Distance sDist;

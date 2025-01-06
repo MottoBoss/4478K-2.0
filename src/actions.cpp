@@ -15,17 +15,20 @@ void intakeDist(){
 		}
 	}
 }
+
 void lift(){
 	fourBar.set_value(HIGH);
 }
 void lower(){
 	fourBar.set_value(LOW);
 }
-void overclock(){
-	dunker.move_relative(100,100);
+
+void dunk(){
+	overclock.move_relative(100,100);
 	delay(200);
-	dunker.move_relative(-100,100);
+	overclock.move_relative(-100,100);
 } 
+
 void intakeColorRed(){
 	if(sOpt.get_hue() == 0){
 		intakeDist();
