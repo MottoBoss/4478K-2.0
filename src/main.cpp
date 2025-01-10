@@ -156,10 +156,10 @@ void opcontrol() {
 		}
 		
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_R1)){    
-			mIntake.move(-127);
+			mIntake.move(127);
 		} //move intake forward
 		else if(controller.get_digital(E_CONTROLLER_DIGITAL_R2)){   
-			mIntake.move(127);
+			mIntake.move(-127);
 		}//move intake backward
 		else{
 			mIntake.brake();
@@ -175,8 +175,7 @@ void opcontrol() {
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L2)){
 			toggleRedirect();
 		}	
-		lcd::print(1, "Dunker: %d", dunkerSensor.get_position());
-		lcd::print(2, "overclock velo: %d", overclock.get_actual_velocity());
+		
 		
         //controller.set_text(0, 0, "Positon: %f", (dunkerSensor.get_position()));
      

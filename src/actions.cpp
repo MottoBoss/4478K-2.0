@@ -1,4 +1,5 @@
 #include "devices.h"
+#include "pros/llemu.hpp"
 void grab(){
 	Clamper.set_value(HIGH);
 }
@@ -43,12 +44,16 @@ void startDunk(void* param){
 
 			 //bring it back
 				overclock.move(-127);
-				delay(200);
+				delay(500);
 			while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){
 				delay(20);
+				controller.rumble(".");
 			}
+			overclock.move(0);
 			overclock.brake();
+		//	lcd::print(4, "DONE: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
 			dunkItHoe = false;
+			
 	}
 		
 		delay(20);

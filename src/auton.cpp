@@ -1,8 +1,9 @@
 #include "devices.h"
 #include "liblvgl/llemu.hpp"
 #include "actions.h"
+#include "pros/llemu.hpp"
 
-int selection = 4;
+int selection = 0;
 /*
  0 = RedRight Mogo
  1 = RedLeft Ring
@@ -43,11 +44,18 @@ void autonSelector(){
 	}
 }
 void redRight(){ //mogo side
-    chassis.setPose(-65.1,5, 315);
+    chassis.setPose(-65.1,-5, 315);
 	dunk();
-    chassis.moveToPose(-28.5, -23.999,-55, 2500, {.forwards = false});
+    chassis.setPose(-65.1,-5, 315);
+    delay(2000); //score alliance stake
+    overclock.move_absolute(10, 100);//redundant to bring arm back down
+    
+    chassis.moveToPose(-27, -21,-55, 8000, {.forwards = false});
     delay(75);
     grab();
+    lcd::print(1, "x: %f", chassis.getPose().x);    
+	lcd::print(2, "y : %f", chassis.getPose().y);
+    lcd::print(3, "theta: %f", chassis.getPose().theta);
     delay(75);
 	chassis.setPose(-28.5,  -23.999, chassis.getPose().theta);
     chassis.moveToPoint(-19.5, -61.914, 3000);//pickup ring to put on Mogo
