@@ -17,17 +17,45 @@ void intakeDist(){
 }
 
 void lift(){
-	fourBar.set_value(HIGH);
+	fourBar1.set_value(HIGH);
+
 }
 void lower(){
-	fourBar.set_value(LOW);
+	fourBar1.set_value(LOW);
+	
 }
-
+bool dunkItHoe = false;
 void dunk(){
-	overclock.move_relative(100,100);
-	delay(200);
-	overclock.move_relative(-100,100);
-} 
+	dunkItHoe = true;
+}
+void startDunk(void* param){
+	while(true){
+		while(dunkItHoe){//task starts
+
+			 // go to dunk it
+				overclock.move(127);
+
+			delay(200);
+			while(dunkerSensor.get_angle() < 230 * 100 && overclock.get_actual_velocity() > 0){
+				controller.rumble(".");
+				delay(20);
+			}
+
+			 //bring it back
+				overclock.move(-127);
+				delay(200);
+			while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){
+				delay(20);
+			}
+			overclock.brake();
+			dunkItHoe = false;
+	}
+		
+		delay(20);
+	}
+	delay(20);
+	}
+ 
 
 void intakeColorRed(){
 	if(sOpt.get_hue() == 0){

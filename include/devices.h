@@ -16,13 +16,14 @@ extern MotorGroup mRights; // right motors reverse (positve)
 extern Motor mIntake;
 extern Motor overclock;
 extern Imu imu;
-extern Rotation rotation_sensor;
+extern Rotation dunkerSensor;
 extern Distance sDist;
 extern Optical sOpt;
 extern adi::Port Clamper; //even different than PROS + EZTemplate or PROS + OkapiLib
-extern adi::Port fourBar;
+extern adi::Port fourBar1;
 extern Drivetrain drivetrain;
 extern OdomSensors sensors;
+extern adi :: Port redirect1;
 // lateral PID controller
 extern ControllerSettings lateral_controller;
 // angular PID controller
@@ -36,4 +37,4 @@ extern Chassis chassis;
 extern PID armSetPid;
 extern PID armScorePID;
 
-#endif 
+#endif

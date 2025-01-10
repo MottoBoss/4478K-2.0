@@ -43,24 +43,16 @@ void autonSelector(){
 	}
 }
 void redRight(){ //mogo side
-    chassis.setPose(-51.7, -18.0, 90);
-    chassis.moveToPoint(-50.5,  0.2, 1500, {.forwards = false});
-	chassis.waitUntilDone();
-	chassis.setPose(-50.5,  0.2, chassis.getPose().theta);
-    chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
-    chassis.waitUntilDone();
-    delay(100);
-    dunk();
-    delay(900); //score alliance stake
-
-    chassis.moveToPoint(-47.938, -15.951, 1000);
-    chassis.moveToPose(-28.5, -23.999, -55, 2000, {.forwards = false}); //get to mogo
-    chassis.waitUntilDone();
+    chassis.setPose(-65.1,5, 315);
+	dunk();
+    chassis.moveToPose(-28.5, -23.999,-55, 2500, {.forwards = false});
     delay(75);
     grab();
     delay(75);
 	chassis.setPose(-28.5,  -23.999, chassis.getPose().theta);
     chassis.moveToPoint(-19.5, -61.914, 3000);//pickup ring to put on Mogo
+    release();
+    chassis.moveToPose(-3, -46, 180, 2000, {.forwards = false}); //go to goal
     chassis.moveToPose(-18, -1.98, 20, 3000); //touch bar
 }
 
@@ -124,27 +116,17 @@ void redLeft(){ //ring side
 
 
 void blueRight(){ //ring side
-    chassis.setPose(-51.7, -18.0, 90);
-    chassis.moveToPoint(-50.5,  0.2, 1500, {.forwards = false});
-	chassis.waitUntilDone();
-	chassis.setPose(-50.5,  0.2, chassis.getPose().theta);
-    chassis.moveToPose(-57.4,  0.2, 90, 1500, {.forwards = false});
-    chassis.waitUntilDone();
-    delay(100);
-    dunk();
-    delay(900); //score alliance stake
-
-    mIntake.move(-280);
-    chassis.moveToPoint(-47.938, -15.951, 1000);
-    chassis.moveToPose(-28.5, -23.999, -55, 2000, {.forwards = false}); //get to mogo
-    chassis.waitUntilDone();
+    chassis.setPose(-65.1,5, 315);
+	dunk();
+    chassis.moveToPose(-28.5, -23.999,-55, 2500, {.forwards = false});
     delay(75);
     grab();
     delay(75);
 	chassis.setPose(-28.5,  -23.999, chassis.getPose().theta);
-    chassis.moveToPoint(-19.5, -61.914, 2800);//pickup ring to put on Mogo
-    chassis.moveToPose(-12.561, -60.9, 90, 1000); //prepare to rush
-    chassis.moveToPoint(-6, -60.9, 1400); //rush center rings
+    chassis.moveToPoint(-19.5, -61.914, 3000);//pickup ring to put on Mogo
+    release();
+    chassis.moveToPose(-3, -46, 180, 2000); //pick up rings
+    
     chassis.moveToPose(-18, -1.98, 20, 3000); //touch bar
    
 }

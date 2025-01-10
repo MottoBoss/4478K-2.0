@@ -11,9 +11,13 @@
 //#include "pros/motors.h"
 #include "pros/motors.hpp"
 #include "drive.h"
+//#include <optional>
+#include <iostream>
 #include <string>
 using namespace pros;
 using namespace lemlib;
+
+
 
 
 
@@ -28,14 +32,15 @@ void initialize() {
 	lcd::initialize();
 	chassis.calibrate();
     imu.reset();
-    Rotation rotation_sensor(10);
 	lcd::set_text(1, "Press center button to select autonomous");
 	lcd::register_btn1_cb(autonSelector);
-
+	redirect1.set_value(HIGH);
 	Clamper.set_value(LOW);
-    rotation_sensor.reset_position();
-    rotation_sensor.set_position(0);
-    rotation_sensor.reverse();
+	overclock.set_zero_position_all(40);
+	Task dunkTask(startDunk, (void*)"PROS", TASK_PRIORITY_DEFAULT,
+                TASK_STACK_DEPTH_DEFAULT,"controls dunk task" );
+    dunkerSensor.reset_position();
+    dunkerSensor.set_position(40);
 }
 
 /**
@@ -123,8 +128,7 @@ void opcontrol() {
 	bool isLiftDown = true;
 	overclock.tare_position();
     
-    rotation_sensor.reset_position();
-    rotation_sensor.set_position(0);
+    
 
 	while (true) {
 		controller.set_text(0, 0, std :: to_string(mIntake.get_actual_velocity()));
@@ -162,14 +166,20 @@ void opcontrol() {
 		}    //stop intake
 
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
-			//mArm.move(-127);
+		
             dunk();
 		}
+		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)){//emergency stop for dunker
+			dunkItHoe = false;
+		}
+		if(controller.get_digital(E_CONTROLLER_DIGITAL_L2)){
+			toggleRedirect();
+		}	
+		lcd::print(1, "Dunker: %d", dunkerSensor.get_position());
+		lcd::print(2, "overclock velo: %d", overclock.get_actual_velocity());
 		
-	
-
-        //controller.set_text(0, 0, "Positon: %f", (rotation_sensor.get_position()));
+        //controller.set_text(0, 0, "Positon: %f", (dunkerSensor.get_position()));
      
-        //controller.set_text(0,0,"%d",rotation_sensor.get_position() );
+        //controller.set_text(0,0,"%d",dunkerSensor.get_position() );
 	}
 }
