@@ -37,7 +37,7 @@ void startDunk(void* param){
 				overclock.move(127);
 
 			delay(200);
-			while(dunkerSensor.get_angle() < 230 * 100 && overclock.get_actual_velocity() > 0){
+			while(dunkerSensor.get_angle() < 230 * 100 && overclock.get_actual_velocity() > 0){ //stops dunk if stuck or reaches target
 				controller.rumble(".");
 				delay(20);
 			}
@@ -45,7 +45,7 @@ void startDunk(void* param){
 			 //bring it back
 				overclock.move(-127);
 				delay(500);
-			while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){
+			while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
 				delay(20);
 				controller.rumble(".");
 			}

@@ -1,3 +1,4 @@
+#include "lemlib/chassis/chassis.hpp"
 #include "main.h"
 #include "devices.h"
 
@@ -28,4 +29,6 @@ void drive(){
     int leftVal = controller.get_analog(ANALOG_LEFT_Y);
 		int rightVal = controller.get_analog(ANALOG_RIGHT_Y);
 		chassis.tank(leftVal, rightVal);
+		mLefts.move(driveCurve.curve(leftVal));
+		mRights.move(driveCurve.curve(rightVal));
 }

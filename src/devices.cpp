@@ -67,6 +67,7 @@ ExpoDriveCurve steerCurve(3, // joystick deadband out of 127
                                   10, // minimum output where drivetrain will move out of 127
                                   1.019 // expo curve gain
 );
+ExpoDriveCurve driveCurve(5, 12, 1.03);
 
 // create the chassis
 Chassis chassis(drivetrain, // drivetrain settings

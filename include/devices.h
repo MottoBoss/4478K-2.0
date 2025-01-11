@@ -32,6 +32,7 @@ extern ControllerSettings angular_controller;
 extern ExpoDriveCurve throttleCurve;
 // input curve for steer input during driver control
 extern ExpoDriveCurve steerCurve;
+extern ExpoDriveCurve driveCurve;
 // create the chassis
 extern Chassis chassis;
 extern PID armSetPid;
