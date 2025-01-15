@@ -33,7 +33,7 @@ void initialize() {
 	chassis.calibrate();
     imu.reset();
 	lcd::set_text(1, "Press center button to select autonomous");
-	lcd::register_btn1_cb(autonSelector);
+	lcd::register_btn1_cb(autonSelector); 
 	redirect1.set_value(HIGH);
 	Clamper.set_value(LOW);
 	overclock.set_zero_position_all(40);
@@ -127,18 +127,19 @@ void opcontrol() {
 	overclock.set_brake_mode(MotorBrake::hold);
 	bool isLiftDown = true;
 	overclock.tare_position();
+	fourBar1.set_value(LOW);
     
     
 
 	while (true) {
 		controller.set_text(0, 0, std :: to_string(mIntake.get_actual_velocity()));
 		lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
-		                 (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
-		                 (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
+		                (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
+		                (pros::lcd::read_buttons() & LCD_BTN_RIGHT) >> 0);  // Prints status of the emulated screen LCDs
 
 		// Tank control scheme
 		// Passes joystick values into tank drive
-		delay(20);                         // Run for 20 ms then update
+		delay(20); // Run for 20 ms then update
         drive();
 
 		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){ //handles clamp
@@ -165,18 +166,20 @@ void opcontrol() {
 			mIntake.brake();
 		}    //stop intake
 
-		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
-		
-            dunk();
+		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_L1)){
+           dunk();
 		}
 		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)){//emergency stop for dunker
 			dunkItHoe = false;
 		}
+
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L2)){
-			toggleRedirect();
+			//toggleRedirect();
 		}	
 		
-		
+		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
+			dunkHold();
+		}
         //controller.set_text(0, 0, "Positon: %f", (dunkerSensor.get_position()));
      
         //controller.set_text(0,0,"%d",dunkerSensor.get_position() );

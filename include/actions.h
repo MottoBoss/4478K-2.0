@@ -9,4 +9,5 @@
  void dunk();
  void startDunk(void* param);
  extern bool dunkItHoe;
+ void dunkHold();
 #endif

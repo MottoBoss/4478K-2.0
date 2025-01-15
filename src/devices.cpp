@@ -3,7 +3,7 @@
 using namespace pros;
 using namespace lemlib;
 Controller controller(E_CONTROLLER_MASTER);
-MotorGroup mLefts({-16, -20, 17}); // left motors forward (negitve)
+MotorGroup mLefts({-16, -20, 10}); // left motors forward (negitve)
 MotorGroup mRights({1, -2, 3}); // right motors reverse (positve)
 Motor mIntake(15, pros::MotorGearset::blue);
 Motor overclock(-19, pros::MotorGearset::green);
@@ -14,7 +14,7 @@ adi::Port Clamper ('H', E_ADI_DIGITAL_OUT); //even different than PROS + EZTempl
 adi::Port fourBar1 ('G', E_ADI_DIGITAL_OUT); //even different than PROS + EZTemplate or PROS + OkapiLib
 adi::Port redirect1 ('F', E_ADI_DIGITAL_OUT); //even different than PROS + EZTemplate or PROS + OkapiLib
 
-Rotation dunkerSensor(7);
+Rotation dunkerSensor(9);
 // drivetrain settings
 Drivetrain drivetrain(&mLefts, // left motor group
                               &mRights, // right motor group
