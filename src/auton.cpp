@@ -15,40 +15,46 @@ int selection = 0;
  6 = Blue Goal Rush
 */
 void autonSelector(){
-	if(selection <= 4){
-		selection++;
-	} else {
-		selection = 0;
-	}
-	switch(selection){
-	case 0:
-		pros::lcd::set_text(2, "RedRight(MOGO Side)");
-		break;
-	case 1:
-		pros::lcd::set_text(2, "RedLeft(Ring Side)");
-		break;
-	case 2:
-		pros::lcd::set_text(2, "BlueLeft(MOGO side)");
-		break;
-	case 3:
-		pros::lcd::set_text(2, "BlueRight(Ring Side)");
-		break;
-	case 4:
-		pros::lcd::set_text(2, "Prog Skills");
-		break;
-	case 5:
-		pros::lcd::set_text(2, "Red Goal Rush");
-		break;
-	case 6:
-		pros::lcd::set_text(2, "Blue Goal Rush");
-		break;
-	}
+    if(selection <= 7){
+        selection++;
+    } else {
+        selection = 0;
+    }
+    switch(selection){
+    case 0:
+        pros::lcd::set_text(2, "RedRight(MOGO Side)");
+        break;
+    case 1:
+        pros::lcd::set_text(2, "RedLeft(Ring Side)");
+        break;
+    case 2:
+        pros::lcd::set_text(2, "BlueLeft(MOGO side)");
+        break;
+    case 3:
+        pros::lcd::set_text(2, "BlueRight(Ring Side)");
+        break;
+    case 4:
+        pros::lcd::set_text(2, "Prog Skills");
+        break;
+    case 5:
+        pros::lcd::set_text(2, "Red Goal Rush");
+        break;
+    case 6:
+        pros::lcd::set_text(2, "Blue Goal Rush");
+        break;
+    case 7:
+        pros::lcd::set_text(2, "Red 4 ring");
+        break;
+    case 8:
+        pros::lcd::set_text(2, "Blue 4 ring");
+        break;
+    }
 }
 void redRight(){ //mogo side
     chassis.setPose(-65.1,-5, 270);
     chassis.turnToHeading(310, 500);
     chassis.waitUntilDone();
-	dunk();
+    dunk();
     chassis.setPose(-65.1,-5, 315);
     delay(500); //score alliance stake
     overclock.move_absolute(10, 100);//redundancy to ensure arm comes back down
@@ -57,11 +63,11 @@ void redRight(){ //mogo side
     delay(75);
     grab();
     lcd::print(1, "x: %f", chassis.getPose().x);    
-	lcd::print(2, "y : %f", chassis.getPose().y);
+    lcd::print(2, "y : %f", chassis.getPose().y);
     lcd::print(3, "theta: %f", chassis.getPose().theta);
     delay(75);
     mIntake.move(127);
-	chassis.setPose(-15,  -28, chassis.getPose().theta);
+    chassis.setPose(-15,  -28, chassis.getPose().theta);
     chassis.moveToPoint(-28.6, -53.914, 3000);//pickup ring to put on Mogo
     chassis.waitUntilDone();
     release();
@@ -77,20 +83,20 @@ void blueLeft(){ //mogo side
     chassis.setPose(-65.1,5, 270);
     chassis.turnToHeading(230, 500);
     chassis.waitUntilDone();
-	dunk();
+    dunk();
     chassis.setPose(-65.1,5, 225);
     delay(500); //score alliance stake
     overclock.move_absolute(10, 100);//redundancy to ensure arm comes back down
-    chassis.moveToPose(-27, 21,235, 3500, {.forwards = false}); //move to mogo
+    chassis.moveToPose(-27, 24.5,235, 3500, {.forwards = false}); //move to mogo
     chassis.waitUntilDone();
     delay(75);
     grab();
-    lcd::print(1, "x: %f", chassis.getPose().x);    
-	lcd::print(2, "y : %f", chassis.getPose().y);
-    lcd::print(3, "theta: %f", chassis.getPose().theta);
+    // lcd::print(1, "x: %f", chassis.getPose().x);    
+    // lcd::print(2, "y : %f", chassis.getPose().y);
+    // lcd::print(3, "theta: %f", chassis.getPose().theta);
     delay(75);
     mIntake.move(127); 
-	chassis.setPose(-15,  28, chassis.getPose().theta);
+    chassis.setPose(-15,  28, chassis.getPose().theta);
     chassis.moveToPoint(-28.6, 53.914, 3000);//pickup ring to put on Mogo
     chassis.waitUntilDone();
     //release();
@@ -107,25 +113,25 @@ void redLeft(){ //ring side
     chassis.setPose(-65.1,5, 270);
     chassis.turnToHeading(230, 500);
     chassis.waitUntilDone();
-	dunk();
+    dunk();
     chassis.setPose(-65.1,5, 225);
     delay(500); //score alliance stake
     overclock.move_absolute(10, 100);//redundancy to ensure arm comes back down
-    chassis.moveToPose(-27, 21,235, 2800, {.forwards = false}); //move to mogo
+    chassis.moveToPose(-27, 24,235, 2800, {.forwards = false}); //move to mogo
     chassis.waitUntilDone();
     delay(75);
     grab();
-    lcd::print(1, "x: %f", chassis.getPose().x);    
-	lcd::print(2, "y : %f", chassis.getPose().y);
-    lcd::print(3, "theta: %f", chassis.getPose().theta);
+    // lcd::print(1, "x: %f", chassis.getPose().x);    
+    // lcd::print(2, "y : %f", chassis.getPose().y);
+    // lcd::print(3, "theta: %f", chassis.getPose().theta);
     delay(75);
     mIntake.move(127);
-	chassis.setPose(-15,  28, chassis.getPose().theta);
-    chassis.moveToPoint(-28.6, 53.914, 3000);//pickup ring to put on Mogo
+    chassis.setPose(-15,  28, chassis.getPose().theta);
+    chassis.moveToPoint(-22.6, 53.914, 3000);//pickup ring to put on Mogo
     chassis.waitUntilDone();
-    chassis.moveToPose(-10, 52, 0, 1500); //go to middle ring #1
+    chassis.moveToPose(-6, 52, 0, 2000); //go to middle ring #1
     chassis.moveToPoint(-15, 47, 1000); //preprare to rush ring#2
-    chassis.moveToPose(-10, 52, 0, 2000);//rush ring #2
+    chassis.moveToPose(-6, 52, 0, 2000);//rush ring #2
     chassis.moveToPose(-18, 1.98, 160, 3000); //touch bar
     chassis.waitUntilDone();
     lift();
@@ -136,7 +142,7 @@ void blueRight(){ //ring side
     chassis.setPose(-65.1,-5, 270);
     chassis.turnToHeading(310, 1000);
     chassis.waitUntilDone();
-	dunk();
+    dunk();
     chassis.setPose(-65.1,-5, 315);
     delay(500); //score alliance stake
     overclock.move_absolute(10, 100);//redundancy to ensure arm comes back down
@@ -145,10 +151,10 @@ void blueRight(){ //ring side
     delay(75);
     grab();
     lcd::print(1, "x: %f", chassis.getPose().x);    
-	lcd::print(2, "y : %f", chassis.getPose().y);
+    lcd::print(2, "y : %f", chassis.getPose().y);
     lcd::print(3, "theta: %f", chassis.getPose().theta);
     delay(75);
-	chassis.setPose(-15,  -28, chassis.getPose().theta);
+    chassis.setPose(-15,  -28, chassis.getPose().theta);
     mIntake.move(127);
     chassis.moveToPoint(-28.6, -53.914, 3000);//pickup ring to put on Mogo
     chassis.waitUntilDone();
@@ -270,5 +276,35 @@ void blueRush(){
     mIntake.move(127);
     chassis.moveToPose(-18, 1.98, 160, 3000, {.forwards = false}); //touch bar
     chassis.waitUntilDone();
+    lift();
+}
+void blue4Ring(){
+
+}
+void red4Ring(){
+    chassis.setPose(-51, 23, 90);
+    /*
+    while (1){
+    lcd::print(1, "x: %f", chassis.getPose().x);    
+    lcd::print(2, "y : %f", chassis.getPose().y);
+    lcd::print(3, "theta: %f", chassis.getPose().theta);
+    delay(200);
+    pros::lcd::clear_line(1);
+    pros::lcd::clear_line(2);
+    pros::lcd::clear_line(3);
+    delay(200);
+    //lcd::clear();
+    }
+    */
+    chassis.moveToPoint(-70, 22.5, 3000, {.forwards = false});
+    grab();
+    chassis.waitUntilDone();
+    chassis.turnToHeading(195, 3000);
+    mIntake.move(127);
+    chassis.moveToPose(-78.28, -2.62, 197, 3000);
+    chassis.moveToPoint(-92.3, -6.1, 3000);
+    chassis.moveToPoint(-93.1, 2.4, 3000);
+    chassis.moveToPose(-90, 25, 360, 3000);
+    mIntake.brake();
     lift();
 }

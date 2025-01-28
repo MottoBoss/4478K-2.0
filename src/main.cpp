@@ -11,6 +11,7 @@
 //#include "pros/motors.h"
 #include "pros/motors.hpp"
 #include "drive.h"
+#include "pros/rtos.hpp"
 //#include <optional>
 #include <iostream>
 #include <string>
@@ -104,6 +105,18 @@ void autonomous() {
 	case 4:
 		progSkills();
 		break;
+	case 5:
+		redRush();
+		break;
+	case 6:
+		blueRush();
+		break;
+	case 7:
+		red4Ring();
+		break;
+	case 8:
+		blue4Ring();
+		break;
 	}
 	
 }
@@ -132,6 +145,9 @@ void opcontrol() {
     
 
 	while (true) {
+		lcd::print(1, "x: %f", chassis.getPose().x);    
+   		lcd::print(2, "y : %f", chassis.getPose().y);
+   		lcd::print(3, "theta: %f", chassis.getPose().theta);
 		controller.set_text(0, 0, std :: to_string(mIntake.get_actual_velocity()));
 		lcd::print(0, "%d %d %d", (pros::lcd::read_buttons() & LCD_BTN_LEFT) >> 2,
 		                (pros::lcd::read_buttons() & LCD_BTN_CENTER) >> 1,
@@ -174,7 +190,7 @@ void opcontrol() {
 		}
 
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L2)){
-			//toggleRedirect();
+			toggleRedirect();
 		}	
 		
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
