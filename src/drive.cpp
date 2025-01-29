@@ -1,5 +1,5 @@
 #include "lemlib/chassis/chassis.hpp"
-#include "main.h"
+//#include "main.h"
 #include "devices.h"
 #include "pros/misc.h"
 
@@ -31,7 +31,7 @@ void toggleRedirect(){
 void drive(){
 	int leftVal = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
 	int rightVal = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y);
-	chassis.tank(leftVal, rightVal);
-	//	mLefts.move(driveCurve.curve(leftVal));
-	//	mRights.move(driveCurve.curve(rightVal));
+	//chassis.tank(leftVal, rightVal);
+	mLefts.move(driveCurve.curve(leftVal));
+	mRights.move(driveCurve.curve(rightVal));
 }

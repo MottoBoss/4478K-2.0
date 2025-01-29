@@ -4,6 +4,7 @@
 #include "auton.h"
 #include "actions.h"
 #include "lemlib/chassis/chassis.hpp"
+#include "liblvgl/llemu.hpp"
 #include "pros/abstract_motor.hpp"
 #include "pros/adi.h"
 #include "pros/adi.hpp"
@@ -13,7 +14,7 @@
 #include "drive.h"
 #include "pros/rtos.hpp"
 //#include <optional>
-#include <iostream>
+//#include <iostream>
 #include <string>
 using namespace pros;
 using namespace lemlib;
@@ -51,6 +52,7 @@ void initialize() {
  */
 void disabled() {
 	pros::lcd::register_btn1_cb(autonSelector);
+	pros::lcd::register_btn2_cb(placeMogoToggle);
     
 }
 
@@ -158,7 +160,7 @@ void opcontrol() {
 		delay(20); // Run for 20 ms then update
         drive();
 
-		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_B)){ //handles clamp
+		if(controller.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_B)){ //handles clamp
 			toggleClamp();
 		}
 		
@@ -189,7 +191,7 @@ void opcontrol() {
 			dunkItHoe = false;
 		}
 
-		if(controller.get_digital(E_CONTROLLER_DIGITAL_L2)){
+		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_UP)){
 			toggleRedirect();
 		}	
 		

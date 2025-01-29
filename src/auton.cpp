@@ -5,6 +5,7 @@
 #include "pros/llemu.hpp"
 
 int selection = 0;
+bool cornerMogo = false;
 /*
  0 = RedRight Mogo
  1 = RedLeft Ring
@@ -14,6 +15,15 @@ int selection = 0;
  5 = Red Goal Rush
  6 = Blue Goal Rush
 */
+void placeMogoToggle(){
+	cornerMogo = true;
+    if(cornerMogo){
+        pros::lcd::set_text(3, "Mogo going into corner");
+    }
+    else{
+        pros::lcd::set_text(3, "Robot touching bar");
+    }
+}
 void autonSelector(){
     if(selection <= 7){
         selection++;
@@ -278,8 +288,21 @@ void blueRush(){
     chassis.waitUntilDone();
     lift();
 }
-void blue4Ring(){
-
+void blue4Ring(){ //x = 0 towards the rings y more neg towards wall
+    chassis.setPose(51, 23, 90);
+    chassis.moveToPoint(32, 22.5, 2000, {.forwards = false});
+    chassis.turnToHeading(5, 600);
+    chassis.moveToPoint(24, 48, 2000);
+    chassis.moveToPose(10, 51.5, 270,1500);
+    chassis.moveToPoint(14, 46, 800, {.forwards= false});
+    chassis.moveToPose(10, 42.5, 270, 2000);
+    if(!cornerMogo){
+    chassis.moveToPoint(14, 17.5, 2000);
+    lift();
+    }
+    else{
+    chassis.moveToPose(62, -62, 330, 4000, {.forwards=false});
+    }
 }
 void red4Ring(){
     chassis.setPose(-51, 23, 90);
@@ -304,7 +327,12 @@ void red4Ring(){
     chassis.moveToPose(-78.28, -2.62, 197, 3000);
     chassis.moveToPoint(-92.3, -6.1, 3000);
     chassis.moveToPoint(-93.1, 2.4, 3000);
+    if(!cornerMogo){
     chassis.moveToPose(-90, 25, 360, 3000);
     mIntake.brake();
     lift();
+    }
+    else{
+        chassis.moveToPose(-48, -20, 315, 2000);
+    }
 }
