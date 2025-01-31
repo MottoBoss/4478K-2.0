@@ -65,17 +65,21 @@ void startDunk(void* param){
 }
 
 void dunkHold(void* param){
+	overclock.set_brake_mode(MotorBrake::hold); 
 while(1){
 	
 	
 	if(driveDunk){ //activates when held
-		lcd::print(4, "DUNKING %d, %d", dunkerSensor.get_position(), overclock.get_actual_velocity());
+		
 		
 		overclock.move(127); //start dunk
 		while(driveDunk){
 			delay(20);
-			if(overclock.get_actual_velocity() < 1){ //check if motor got stuck
+			lcd::print(4, "REALLY DUNKING: %i, %d", dunkerSensor.get_position(), overclock.get_brake_mode());
+			if(dunkerSensor.get_position() > 15000){ //check if motor got stuck
+				
 				overclock.brake(); //stop motor becasue it stuck
+				overclock.move(0);
 				controller.rumble(".");
 			}
 			
@@ -83,11 +87,11 @@ while(1){
 	}
 	else{ //activates when button is not held
 		if(dunkerSensor.get_position() > 20 * 100){ //only run if not at down position
-			lcd::print(4, "Coming back: %d, %d", dunkerSensor.get_position(), overclock.get_actual_velocity());
-			overclock.move(-127); //bring dunker back
+			overclock.move(-90); //bring dunker back
 				while(!driveDunk){
+					lcd::print(4, "Coming back: %i, %d", dunkerSensor.get_position(), overclock.get_brake_mode());
 					delay(20);
-					if(dunkerSensor.get_position() < 10 * 100 || overclock.get_actual_velocity() < 1){//check if motor got stuck
+					if(dunkerSensor.get_position() < 10 * 100){//check if motor got stuck
 						overclock.brake(); //stop motor becasue it stuck
 						controller.rumble(".");
 					}

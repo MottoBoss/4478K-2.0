@@ -120,31 +120,35 @@ void blueLeft(){ //mogo side
 
 
 void redLeft(){ //ring side
-    chassis.setPose(-65.1,5, 270);
-    chassis.turnToHeading(230, 500);
+    
+    
+    chassis.setPose(-49,33, 90);
+    chassis.turnToHeading(47.6, 500);
     chassis.waitUntilDone();
     dunk();
-    chassis.setPose(-65.1,5, 225);
     delay(500); //score alliance stake
     overclock.move_absolute(10, 100);//redundancy to ensure arm comes back down
-    chassis.moveToPose(-27, 24,235, 2800, {.forwards = false}); //move to mogo
+    chassis.moveToPose(-76.5, 22.5, 90, 2500, {.forwards=false});//move to mogo
     chassis.waitUntilDone();
+    chassis.setPose(-76, 22.5, 90);
     delay(75);
     grab();
-    // lcd::print(1, "x: %f", chassis.getPose().x);    
-    // lcd::print(2, "y : %f", chassis.getPose().y);
-    // lcd::print(3, "theta: %f", chassis.getPose().theta);
-    delay(75);
+    
+//copied code from 4 ring mogo at -76 22.5
+    chassis.turnToHeading(195, 1000); //turn towards ring
     mIntake.move(127);
-    chassis.setPose(-15,  28, chassis.getPose().theta);
-    chassis.moveToPoint(-22.6, 53.914, 3000);//pickup ring to put on Mogo
-    chassis.waitUntilDone();
-    chassis.moveToPose(-6, 52, 0, 2000); //go to middle ring #1
-    chassis.moveToPoint(-15, 47, 1000); //preprare to rush ring#2
-    chassis.moveToPose(-6, 52, 0, 2000);//rush ring #2
-    chassis.moveToPose(-18, 1.98, 160, 3000); //touch bar
+    chassis.moveToPose(-78.28, 3, 197, 2000);//pickup 1st ring
+    chassis.moveToPoint(-93.1, -7.5, 2000);
+    chassis.moveToPoint(-84, -3, 1000, {.forwards = false});//backup
+    chassis.moveToPose(-95, 2.4,270, 1900, {.lead = .1});//go to 2nd ring
+    if(!cornerMogo){
+    chassis.moveToPose(-90, 25, 360, 3000);
     chassis.waitUntilDone();
     lift();
+    }
+    else{
+        chassis.moveToPose(-48, -20, 315, 2000);
+    }
 }
 
 
@@ -244,6 +248,17 @@ void progSkills(){
 }
 void redRush(){
     chassis.setPose(-55.5, -64.1, 90);
+    while (1){
+    lcd::print(1, "x: %f", chassis.getPose().x);    
+    lcd::print(2, "y : %f", chassis.getPose().y);
+    lcd::print(3, "theta: %f", chassis.getPose().theta);
+    delay(200);
+    pros::lcd::clear_line(1);
+    pros::lcd::clear_line(2);
+    pros::lcd::clear_line(3);
+    delay(200);
+    //lcd::clear();
+    }
     chassis.moveToPose(-5, -50, 55, 2000, {.forwards= true, .lead = 0.35,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
     delay(1950);
     overclock.move(127);
@@ -267,25 +282,25 @@ void redRush(){
 }
 void blueRush(){
     chassis.setPose(-55.5, 64.1, 90);
-    chassis.moveToPose(-5, 50, 125, 2000, {.forwards= true, .lead = 0.35,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
-    delay(1950);
+    chassis.moveToPose(-12, 55.5, 120, 1800, {.forwards= true, .lead = 0.35,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
+    delay(1500);
     overclock.move(127);
-    chassis.moveToPoint(-18, 60, 800, {.forwards= false, .minSpeed = 127});//bring mogo back to our side
     chassis.waitUntilDone();
+    chassis.moveToPoint(-32, 63, 800, {.forwards= false, .minSpeed = 127});//bring mogo back to our side
+    delay(100);
     dunk();// dunking to bring the dunker back in position
-    mIntake.move(127);
-    chassis.turnToPoint(-27, 38, 1000);
     chassis.waitUntilDone();
-    chassis.moveToPoint(-27, 38, 2000);
-    delay(1000);
-    mIntake.brake();
-    chassis.turnToHeading(340, 1000);
-    chassis.moveToPose(-23.7, 29, 0, 2000, {.forwards = false});//get to mogo
+    mIntake.move(127);
+    chassis.turnToPoint(-19, 50, 1000);
+    chassis.waitUntilDone();
+    chassis.moveToPoint(-19, 50, 2000);
+    delay(2000);
+    chassis.turnToHeading(16, 1000);
+    chassis.moveToPose(-21, 34.5, 0, 2000, {.forwards = false});//get to mogo
     chassis.waitUntilDone();
     grab();
     mIntake.move(127);
     chassis.moveToPose(-18, 1.98, 160, 3000, {.forwards = false}); //touch bar
-    chassis.waitUntilDone();
     lift();
 }
 void blue4Ring(){ //x = 0 towards the rings y more neg towards wall
@@ -316,9 +331,9 @@ void red4Ring(){
     chassis.turnToHeading(195, 1000); //turn towards ring
     mIntake.move(127);
     chassis.moveToPose(-78.28, 3, 197, 2000);//pickup 1st ring
-    chassis.moveToPoint(-93.1, -6.1, 2000);
+    chassis.moveToPoint(-93.1, -7.5, 2000);
     chassis.moveToPoint(-84, -3, 1000, {.forwards = false});//backup
-    chassis.moveToPoint(-93.1, 2.4, 1500);
+    chassis.moveToPose(-95, 2.4,270, 1900, {.lead = .1});//go to 2nd ring
     if(!cornerMogo){
     chassis.moveToPose(-90, 25, 360, 3000);
     chassis.waitUntilDone();

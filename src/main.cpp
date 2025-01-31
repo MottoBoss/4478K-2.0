@@ -34,6 +34,7 @@ void initialize() {
 	lcd::initialize();
 	chassis.calibrate();
     imu.reset();
+	overclock.set_brake_mode(MotorBrake::hold);
 	lcd::set_text(1, "Press center button to select autonomous");
 	lcd::register_btn1_cb(autonSelector); 
 	redirect1.set_value(HIGH);
@@ -144,7 +145,7 @@ void opcontrol() {
 	overclock.tare_position();
 	fourBar1.set_value(LOW);
     Task dunkerTask(dunkHold, (void*)"PROS", TASK_PRIORITY_DEFAULT,  TASK_STACK_DEPTH_DEFAULT,"controls dunk task" );
-	
+	overclock.set_brake_mode(MotorBrake::hold); 
     
 
 	while (true) {
