@@ -143,7 +143,8 @@ void opcontrol() {
 	bool isLiftDown = true;
 	overclock.tare_position();
 	fourBar1.set_value(LOW);
-    
+    Task dunkerTask(dunkHold, (void*)"PROS", TASK_PRIORITY_DEFAULT,  TASK_STACK_DEPTH_DEFAULT,"controls dunk task" );
+	
     
 
 	while (true) {
@@ -184,9 +185,7 @@ void opcontrol() {
 			mIntake.brake();
 		}    //stop intake
 
-		if(controller.get_digital_new_press(E_CONTROLLER_DIGITAL_L1)){
-           dunk();
-		}
+		
 		if(controller.get_digital(pros::E_CONTROLLER_DIGITAL_X)){//emergency stop for dunker
 			dunkItHoe = false;
 		}
@@ -196,7 +195,10 @@ void opcontrol() {
 		}	
 		
 		if(controller.get_digital(E_CONTROLLER_DIGITAL_L1)){
-			dunkHold();
+			driveDunk= true;
+		}
+		else{
+			driveDunk = false;
 		}
         //controller.set_text(0, 0, "Positon: %f", (dunkerSensor.get_position()));
      

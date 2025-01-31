@@ -1,6 +1,9 @@
+#include "actions.h"
 #include "devices.h"
 //#include "pros/llemu.hpp"
+#include "pros/llemu.hpp"
 #include "pros/motors.h"
+bool driveDunk= false;
 void grab(){
 	Clamper.set_value(HIGH);
 }
@@ -61,18 +64,49 @@ void startDunk(void* param){
 	delay(20);
 }
 
-void dunkHold(){
-	overclock.get_brake_mode(E_MOTOR_BRAKE_HOLD);
-	overclock.move(127);
-	delay(200);
-	while(dunkerSensor.get_angle() < 230 * 100 && overclock.get_actual_velocity() > 0){ //stops dunk if stuck or reaches target
-		controller.rumble(".");
+void dunkHold(void* param){
+while(1){
+	
+	delay(20);
+	if(driveDunk){
+		lcd::print(4, "DONE: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
+		overclock.move(127);
+	
+	}
+	else{
+		if(dunkerSensor.get_angle() > 20 * 100){ //only run if not at down position
+		lcd::print(4, "AHHHHHH: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
+		overclock.move(-127);
+		delay(50);
+			while(dunkerSensor.get_angle() > 20 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
+				delay(20);
+			}
+			overclock.move(0);
+			overclock.brake();
+			lcd::print(4, "No way this i srunning: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
+		
+			}
+		else{
+			overclock.move(0);
+			overclock.brake();
+			lcd::print(4, "No way this i srunning: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
+		
+		}
+	}
+	
+	
+}
+}
+void dunkReturn(){
+	overclock.move(-127);
+	delay(500);
+	while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
 		delay(20);
+		controller.rumble(".");
 	}
 	overclock.move(0);
 	overclock.brake();
 }
-
 void intakeColorRed(){
 	if(sOpt.get_hue() == 0){
 		intakeDist();

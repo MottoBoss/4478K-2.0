@@ -291,6 +291,8 @@ void blueRush(){
 void blue4Ring(){ //x = 0 towards the rings y more neg towards wall
     chassis.setPose(51, 23, 90);
     chassis.moveToPoint(32, 22.5, 2000, {.forwards = false});
+    chassis.waitUntilDone();
+    grab();
     chassis.turnToHeading(5, 600);
     chassis.moveToPoint(24, 48, 2000);
     chassis.moveToPose(10, 51.5, 270,1500);
@@ -319,14 +321,16 @@ void red4Ring(){
     //lcd::clear();
     }
     */
-    chassis.moveToPoint(-70, 22.5, 3000, {.forwards = false});
+    chassis.moveToPoint(-76, 22.5, 1500, {.forwards = false});//mogo
+    chassis.waitUntilDone();
     grab();
     chassis.waitUntilDone();
-    chassis.turnToHeading(195, 3000);
+    chassis.turnToHeading(195, 1000);
     mIntake.move(127);
-    chassis.moveToPose(-78.28, -2.62, 197, 3000);
-    chassis.moveToPoint(-92.3, -6.1, 3000);
-    chassis.moveToPoint(-93.1, 2.4, 3000);
+    chassis.moveToPose(-78.28, 3, 197, 2000);//pickup 1st ring
+    chassis.moveToPoint(-93.1, -6.1, 2000);
+    chassis.moveToPoint(-84, -3, 1000, {.forwards = false});//backup
+    chassis.moveToPoint(-93.1, 2.4, 1500);
     if(!cornerMogo){
     chassis.moveToPose(-90, 25, 360, 3000);
     mIntake.brake();

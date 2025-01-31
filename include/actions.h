@@ -7,7 +7,9 @@
  void lift();
  void lower();
  void dunk();
+ void returnDunk();
  void startDunk(void* param);
  extern bool dunkItHoe;
- void dunkHold();
+ extern bool driveDunk;
+ void dunkHold(void* param);
 #endif
