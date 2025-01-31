@@ -244,7 +244,7 @@ void progSkills(){
 }
 void redRush(){
     chassis.setPose(-55.5, -64.1, 90);
-    chassis.moveToPose(-5, -50, 55, 2000, {.forwards= true, .lead = 0.7,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
+    chassis.moveToPose(-5, -50, 55, 2000, {.forwards= true, .lead = 0.35,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
     delay(1950);
     overclock.move(127);
     chassis.moveToPoint(-18, -60, 800, {.forwards= false, .minSpeed = 127});//bring mogo back to our side
@@ -267,7 +267,7 @@ void redRush(){
 }
 void blueRush(){
     chassis.setPose(-55.5, 64.1, 90);
-    chassis.moveToPose(-5, 50, 125, 2000, {.forwards= true, .lead = 0.7,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
+    chassis.moveToPose(-5, 50, 125, 2000, {.forwards= true, .lead = 0.35,.minSpeed = 100,.earlyExitRange = 8});//get to mogo 
     delay(1950);
     overclock.move(127);
     chassis.moveToPoint(-18, 60, 800, {.forwards= false, .minSpeed = 127});//bring mogo back to our side
@@ -290,16 +290,17 @@ void blueRush(){
 }
 void blue4Ring(){ //x = 0 towards the rings y more neg towards wall
     chassis.setPose(51, 23, 90);
-    chassis.moveToPoint(32, 22.5, 2000, {.forwards = false});
+    chassis.moveToPoint(26, 22.5, 2000, {.forwards = false}); // mogo
     chassis.waitUntilDone();
     grab();
     chassis.turnToHeading(5, 600);
-    chassis.moveToPoint(24, 48, 2000);
-    chassis.moveToPose(10, 51.5, 270,1500);
+    chassis.moveToPoint(23.72, 42, 2000);
+    chassis.moveToPose(9, 51.5, 270,1500);
     chassis.moveToPoint(14, 46, 800, {.forwards= false});
-    chassis.moveToPose(10, 42.5, 270, 2000);
+    chassis.moveToPose(9, 42.5, 270, 2000, {.lead = .1});
     if(!cornerMogo){
     chassis.moveToPoint(14, 17.5, 2000);
+    chassis.waitUntilDone();
     lift();
     }
     else{
@@ -308,7 +309,26 @@ void blue4Ring(){ //x = 0 towards the rings y more neg towards wall
 }
 void red4Ring(){
     chassis.setPose(-51, 23, 90);
-    /*
+    chassis.moveToPoint(-76, 22.5, 1500, {.forwards = false});//mogo
+    chassis.waitUntilDone();
+    grab();
+    chassis.waitUntilDone();
+    chassis.turnToHeading(195, 1000); //turn towards ring
+    mIntake.move(127);
+    chassis.moveToPose(-78.28, 3, 197, 2000);//pickup 1st ring
+    chassis.moveToPoint(-93.1, -6.1, 2000);
+    chassis.moveToPoint(-84, -3, 1000, {.forwards = false});//backup
+    chassis.moveToPoint(-93.1, 2.4, 1500);
+    if(!cornerMogo){
+    chassis.moveToPose(-90, 25, 360, 3000);
+    chassis.waitUntilDone();
+    lift();
+    }
+    else{
+        chassis.moveToPose(-48, -20, 315, 2000);
+    }
+}
+   /*
     while (1){
     lcd::print(1, "x: %f", chassis.getPose().x);    
     lcd::print(2, "y : %f", chassis.getPose().y);
@@ -321,22 +341,3 @@ void red4Ring(){
     //lcd::clear();
     }
     */
-    chassis.moveToPoint(-76, 22.5, 1500, {.forwards = false});//mogo
-    chassis.waitUntilDone();
-    grab();
-    chassis.waitUntilDone();
-    chassis.turnToHeading(195, 1000);
-    mIntake.move(127);
-    chassis.moveToPose(-78.28, 3, 197, 2000);//pickup 1st ring
-    chassis.moveToPoint(-93.1, -6.1, 2000);
-    chassis.moveToPoint(-84, -3, 1000, {.forwards = false});//backup
-    chassis.moveToPoint(-93.1, 2.4, 1500);
-    if(!cornerMogo){
-    chassis.moveToPose(-90, 25, 360, 3000);
-    mIntake.brake();
-    lift();
-    }
-    else{
-        chassis.moveToPose(-48, -20, 315, 2000);
-    }
-}

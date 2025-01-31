@@ -48,7 +48,7 @@ void startDunk(void* param){
 			//bring it back
 			overclock.move(-127);
 			delay(500);
-			while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
+			while(dunkerSensor.get_position() >50 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
 				delay(20);
 				controller.rumble(".");
 			}
@@ -67,46 +67,39 @@ void startDunk(void* param){
 void dunkHold(void* param){
 while(1){
 	
-	delay(20);
-	if(driveDunk){
-		lcd::print(4, "DONE: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
-		overclock.move(127);
 	
+	if(driveDunk){ //activates when held
+		lcd::print(4, "DUNKING %d, %d", dunkerSensor.get_position(), overclock.get_actual_velocity());
+		
+		overclock.move(127); //start dunk
+		while(driveDunk){
+			delay(20);
+			if(overclock.get_actual_velocity() < 1){ //check if motor got stuck
+				overclock.brake(); //stop motor becasue it stuck
+				controller.rumble(".");
+			}
+			
+		}
 	}
-	else{
-		if(dunkerSensor.get_angle() > 20 * 100){ //only run if not at down position
-		lcd::print(4, "AHHHHHH: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
-		overclock.move(-127);
-		delay(50);
-			while(dunkerSensor.get_angle() > 20 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
-				delay(20);
+	else{ //activates when button is not held
+		if(dunkerSensor.get_position() > 20 * 100){ //only run if not at down position
+			lcd::print(4, "Coming back: %d, %d", dunkerSensor.get_position(), overclock.get_actual_velocity());
+			overclock.move(-127); //bring dunker back
+				while(!driveDunk){
+					delay(20);
+					if(dunkerSensor.get_position() < 10 * 100 || overclock.get_actual_velocity() < 1){//check if motor got stuck
+						overclock.brake(); //stop motor becasue it stuck
+						controller.rumble(".");
+					}
+				}
 			}
-			overclock.move(0);
-			overclock.brake();
-			lcd::print(4, "No way this i srunning: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
-		
-			}
-		else{
-			overclock.move(0);
-			overclock.brake();
-			lcd::print(4, "No way this i srunning: %d, %d", dunkerSensor.get_angle(), overclock.get_actual_velocity());
-		
 		}
 	}
 	
 	
 }
-}
-void dunkReturn(){
-	overclock.move(-127);
-	delay(500);
-	while(dunkerSensor.get_angle() >50 * 100 && overclock.get_actual_velocity() > 1){//stops dunk if stuck or reaches target
-		delay(20);
-		controller.rumble(".");
-	}
-	overclock.move(0);
-	overclock.brake();
-}
+
+
 void intakeColorRed(){
 	if(sOpt.get_hue() == 0){
 		intakeDist();
