@@ -54,7 +54,7 @@ void initialize() {
 void disabled() {
 	pros::lcd::register_btn1_cb(autonSelector);
 	pros::lcd::register_btn2_cb(placeMogoToggle);
-    
+  pros::lcd::register_btn0_cb(reverseAutonSelector); 
 }
 
 /**

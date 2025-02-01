@@ -8,6 +8,7 @@ extern bool cornerMogo;
  void blueLeft();
  void progSkills();
  void autonSelector();
+ void reverseAutonSelector();
  void blueRush();
  void redRush();
  void blue4Ring();
