@@ -35,8 +35,11 @@ void initialize() {
 	chassis.calibrate();
     imu.reset();
 	overclock.set_brake_mode(MotorBrake::hold);
+	overclock.brake();
 	lcd::set_text(1, "Press center button to select autonomous");
 	lcd::register_btn1_cb(autonSelector); 
+	pros::lcd::register_btn2_cb(placeMogoToggle);
+    pros::lcd::register_btn0_cb(reverseAutonSelector);
 	redirect1.set_value(HIGH);
 	Clamper.set_value(LOW);
 	overclock.set_zero_position_all(40);
@@ -54,7 +57,7 @@ void initialize() {
 void disabled() {
 	pros::lcd::register_btn1_cb(autonSelector);
 	pros::lcd::register_btn2_cb(placeMogoToggle);
-  pros::lcd::register_btn0_cb(reverseAutonSelector); 
+    pros::lcd::register_btn0_cb(reverseAutonSelector); 
 }
 
 /**

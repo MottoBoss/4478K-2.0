@@ -298,7 +298,7 @@
       }
     },
     "upload_options": {
-      "icon": "pizza",
+      "icon": "clawbot",
       "slot": 1
     },
     "use_early_access": false

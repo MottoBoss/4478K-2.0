@@ -77,10 +77,8 @@ while(1){
 			delay(20);
 			lcd::print(4, "REALLY DUNKING: %i, %d", dunkerSensor.get_position(), overclock.get_brake_mode());
 			if(dunkerSensor.get_position() > 15000){ //check if motor got stuck
-				
 				overclock.brake(); //stop motor becasue it stuck
 				overclock.move(0);
-				controller.rumble(".");
 			}
 			
 		}
@@ -91,9 +89,9 @@ while(1){
 				while(!driveDunk){
 					lcd::print(4, "Coming back: %i, %d", dunkerSensor.get_position(), overclock.get_brake_mode());
 					delay(20);
-					if(dunkerSensor.get_position() < 10 * 100){//check if motor got stuck
+					if(dunkerSensor.get_position() < 2 * 100 && overclock.get_actual_velocity() < 1){//check if motor got stuck
 						overclock.brake(); //stop motor becasue it stuck
-						controller.rumble(".");
+						
 					}
 				}
 			}
